@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" 
+  >
+
+<head>
+<title>welcome</title>
+
+</head>
+
+<body>
+<div class="childContent">
+	<h3>
+		Welcome
+	<th:block sec:authentication="name"></th:block>
+	</h3>
+
+	<hr>
+	<th:block th:text="${msg}"></th:block>
+	
+</div>
+</body>
+
+</html>

@@ -35,7 +35,7 @@ public class WebMvcSecurityConfig {
 	return http.securityMatcher(request -> !request.getRequestURI().startsWith("/api/")) 
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests(auth -> auth
-			.requestMatchers("/",  "/login",
+			.requestMatchers("/","/api/**",  "/login",
 		 "/assets/**", "/css/**", "/js/**", "/images/**", "/webjars/**")
 			.permitAll().requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().authenticated())
 		.formLogin(form -> form.loginPage("/auth/login").loginProcessingUrl("/auth/process-login")

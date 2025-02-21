@@ -8,7 +8,10 @@ import org.modelmapper.AbstractConverter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 import com.quizz.dtos.*;
+import com.quizz.dtos.quiz.QuestionDTO;
+import com.quizz.dtos.quiz.QuizDTO;
 import com.quizz.entities.*;
 
 @Configuration
@@ -48,6 +51,7 @@ public class ModelMapperConfiguration {
         mapper.addConverter(stringToDate);
 
         configureUserMapping(mapper);
+        configureQuizMapping(mapper);
 
         return mapper;
     }
@@ -74,5 +78,22 @@ public class ModelMapperConfiguration {
             .addMappings(mapping -> mapping.skip(Users::setPassword));
     }
 
+    private void configureQuizMapping(ModelMapper mapper) {
+        mapper.createTypeMap(Quizzes.class, QuizDTO.class)
+            .addMapping(Quizzes::getQuizzId, QuizDTO::setQuizzId)
+            .addMapping(Quizzes::getTitle, QuizDTO::setTitle)
+            .addMapping(Quizzes::getDescription, QuizDTO::setDescription)
+            .addMapping(Quizzes::getTimeLimit, QuizDTO::setTimeLimit)
+            .addMapping(Quizzes::getTotalScore, QuizDTO::setTotalScore)
+            .addMapping(Quizzes::getStatus, QuizDTO::setStatus)
+            .addMapping(Quizzes::getQuestionses, QuizDTO::setQuestions);
 
-  }
+        mapper.createTypeMap(Questions.class, QuestionDTO.class)
+            .addMapping(Questions::getQuestionId, QuestionDTO::setQuestionId)
+            .addMapping(Questions::getQuestionText, QuestionDTO::setQuestionText)
+            .addMapping(Questions::getQuestionType, QuestionDTO::setQuestionType)
+            .addMapping(Questions::getScore, QuestionDTO::setScore)
+            .addMapping(Questions::getOrderIndex, QuestionDTO::setOrderIndex)
+            .addMapping(Questions::getAnswerses, QuestionDTO::setAnswers);
+    }
+}
